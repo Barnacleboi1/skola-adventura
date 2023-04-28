@@ -1,19 +1,39 @@
 package Logika;
 
-public class HerniSvet {
+public class HerniSvet
+{
     private Lokace aktualniLokace;
 
-    public HerniSvet() {
-        Lokace domek = new Lokace("domek", "tady bydlis");
+    public HerniSvet()
+    {
+        Lokace domek = new Lokace("domek", "Tady bydlíš, proto tu začíná celá hra.");
+        Lokace les = new Lokace("les", "Rostou tady houby.");
+        Lokace temnyLes = new Lokace("temnoles", "Říká se, že tady můžeš potkat vlka.");
+        Lokace jeskyne = new Lokace("jeskyne", "Nikdo se odsud nikdy nevrátil.");
+        Lokace chaloupka = new Lokace("chaloupka", "Tady bydlí babička.");
 
-        //pridat lokace a pridat do nich vychody, kam z lokace muze hrac jit
+        domek.pridejVychod(les);
+
+        les.pridejVychod(domek);
+        les.pridejVychod(temnyLes);
+
+        temnyLes.pridejVychod(les);
+        temnyLes.pridejVychod(jeskyne);
+        temnyLes.pridejVychod(chaloupka);
+
+        chaloupka.pridejVychod(temnyLes);
+
+        aktualniLokace = domek;
     }
 
-    public Lokace getAktualniLokace() {
+    public Lokace getAktualniLokace()
+    {
         return aktualniLokace;
     }
 
-    public void setAktualniLokace(Lokace aktualniLokace) {
+    public void setAktualniLokace(Lokace aktualniLokace)
+    {
         this.aktualniLokace = aktualniLokace;
     }
 }
+

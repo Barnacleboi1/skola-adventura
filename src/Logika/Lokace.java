@@ -1,5 +1,6 @@
 package Logika;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class Lokace {
@@ -10,6 +11,7 @@ public class Lokace {
     public Lokace(String nazev, String popis) {
         this.nazev = nazev;
         this.popis = popis;
+        this.vychody = new HashSet<>();
     }
 
     public void pridejVychod(Lokace lokace) {
