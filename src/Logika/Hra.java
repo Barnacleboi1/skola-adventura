@@ -19,6 +19,10 @@ public class Hra {
         prikazy.add(new PrikazNapoveda());
 
         prikazy.add(new PrikazJdi(this));
+
+        prikazy.add(new PrikazProhledej(this));
+
+        prikazy.add(new PrikazVezmi(this));
     }
     public String zpracujPrikaz(String vstupUzivatele) {
         String[] array = vstupUzivatele.split(" ");

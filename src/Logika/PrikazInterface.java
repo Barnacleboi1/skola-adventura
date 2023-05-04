@@ -1,8 +1,8 @@
 package Logika;
 
 public interface PrikazInterface {
-    public String getNazev();
-    public String proved(String[] parametry);
+    String getNazev();
+    String proved(String[] parametry);
 }
 
 class PrikazKonec implements PrikazInterface {
@@ -68,5 +68,41 @@ class PrikazJdi implements  PrikazInterface {
         aktualniHra.getHerniSvet().setAktualniLokace(cilovaLokace);
 
         return "Jdeš" + cilovaLokace;
+    }
+}
+class PrikazProhledej implements PrikazInterface {
+    private Hra aktualniHra;
+
+    public PrikazProhledej(Hra aktualniHra) {
+        this.aktualniHra = aktualniHra;
+    }
+
+    @Override
+    public String getNazev() {
+        return "prohledej";
+    }
+
+    @Override
+    public String proved(String[] parametry) {
+        Lokace aktualniLokace = aktualniHra.getHerniSvet().getAktualniLokace();
+        return null;
+    }
+}
+class PrikazVezmi implements PrikazInterface {
+
+    private Hra aktualniHra;
+
+    public PrikazVezmi(Hra aktualniHra) {
+        this.aktualniHra = aktualniHra;
+    }
+
+    @Override
+    public String getNazev() {
+        return null;
+    }
+
+    @Override
+    public String proved(String[] parametry) {
+        return null;
     }
 }

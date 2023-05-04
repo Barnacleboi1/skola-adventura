@@ -7,11 +7,13 @@ public class Lokace {
     private String nazev;
     private String popis;
     private Set<Lokace> vychody;
+    private PostavaInterface postavaVLokaci;
 
-    public Lokace(String nazev, String popis) {
+    public Lokace(String nazev, String popis, PostavaInterface postavaVLokaci) {
         this.nazev = nazev;
         this.popis = popis;
         this.vychody = new HashSet<>();
+        this.postavaVLokaci = postavaVLokaci;
     }
 
     public void pridejVychod(Lokace lokace) {
