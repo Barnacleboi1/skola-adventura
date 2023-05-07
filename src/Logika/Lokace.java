@@ -7,13 +7,13 @@ public class Lokace {
     private String nazev;
     private String popis;
     private Set<Lokace> vychody;
-    private PostavaInterface postavaVLokaci;
+    private Predmet[] predmetyVLokaci;
 
-    public Lokace(String nazev, String popis, PostavaInterface postavaVLokaci) {
+    public Lokace(String nazev, String popis, Predmet... predmetyVLokaci) {
         this.nazev = nazev;
         this.popis = popis;
         this.vychody = new HashSet<>();
-        this.postavaVLokaci = postavaVLokaci;
+        this.predmetyVLokaci = predmetyVLokaci;
     }
 
     public void pridejVychod(Lokace lokace) {
@@ -26,6 +26,9 @@ public class Lokace {
             }
         }
         return false;
+    }
+    public String nechTuPredmet(Predmet predmet) {
+
     }
     public Lokace getVychod(String nazevLokace) {
         for (Lokace lokace : vychody) {

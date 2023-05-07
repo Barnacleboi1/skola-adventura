@@ -106,3 +106,51 @@ class PrikazVezmi implements PrikazInterface {
         return null;
     }
 }
+class PrikazObsahBatohu implements PrikazInterface {
+    Hra aktualniHra;
+
+    public PrikazObsahBatohu(Hra aktualniHra) {
+        this.aktualniHra = aktualniHra;
+    }
+
+    @Override
+    public String getNazev() {
+        return null;
+    }
+
+    @Override
+    public String proved(String[] parametry) {
+        return null;
+    }
+}
+class PrikazPouzijPredmet implements PrikazInterface {
+    private Hra aktualniHra;
+    public PrikazPouzijPredmet(Hra aktualniHra) {
+        this.aktualniHra = aktualniHra;
+    }
+    @Override
+    public String getNazev() {
+        return null;
+    }
+    @Override
+    public String proved(String[] parametry) {
+        return null;
+    }
+}
+class PrikazZanechPredmet implements PrikazInterface {
+    private Hra aktualniHra;
+
+    public PrikazZanechPredmet(Hra aktualniHra) {
+        this.aktualniHra = aktualniHra;
+    }
+
+    @Override
+    public String getNazev() {
+        return null;
+    }
+
+    @Override
+    public String proved(String[] parametry) {
+        return null;
+    }
+}
