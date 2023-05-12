@@ -3,10 +3,16 @@ package Logika;
 public class Predmet {
     private String nazev;
     private boolean bylSebran;
+    private boolean nasazen;
 
     public Predmet(String nazev, boolean bylSebran) {
         this.nazev = nazev;
         this.bylSebran = bylSebran;
+    }
+
+    public Predmet(String nazev, boolean bylSebran, boolean nasazen) {
+        this(nazev, bylSebran);
+        this.nasazen = nasazen;
     }
 
     public String getNazev() {

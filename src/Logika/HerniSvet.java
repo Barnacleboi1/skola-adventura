@@ -9,42 +9,45 @@ public class HerniSvet
     private List<Predmet> vsechnyPredmety = new ArrayList<>();
     public HerniSvet()
     {
-        Predmet mobil = new Predmet("mobil", false);
-        Predmet penezenka = new Predmet("penezenka", false);
-        Predmet klice = new Predmet("klice", false);
+        Predmet baterka = new Predmet("baterka", false);
+        Predmet dopis = new Predmet("dopis", false);
         Predmet batoh = new Predmet("batoh", false);
-        Predmet kartacek = new Predmet("kartacek", false);
+        Predmet nahrdelnik = new Predmet("nahrdelnik", false, false);
         Predmet jidloProPsa = new Predmet("jidlo pro psa", false);
 
 
-        vsechnyPredmety.add(mobil);
-        vsechnyPredmety.add(penezenka);
-        vsechnyPredmety.add(klice);
+        vsechnyPredmety.add(baterka);
+        vsechnyPredmety.add(dopis);
         vsechnyPredmety.add(batoh);
-        vsechnyPredmety.add(kartacek);
-        vsechnyPredmety.add(jidloProPsa);
+        vsechnyPredmety.add(nahrdelnik);
 
 
-        Lokace pokoj = new Lokace("pokoj", "Tady si se probudil, proto tu začíná celá hra", mobil, penezenka, batoh);
-        Lokace chodba = new Lokace("chodba", "chodba u tebe doma");
-        Lokace koupelna = new Lokace("koupelna", "koupelna", kartacek);
-        Lokace kuchyne = new Lokace("kuchyne", "kuchyne", jidloProPsa);
-        Lokace venku = new Lokace("venku", "venku");
-        Lokace Louka = new Lokace("louka", "tady můžeš venčit");
-        Lokace skola = new Lokace("skola", "sem chceš dojít");
 
-        domek.pridejVychod(les);
+        Lokace chodba = new Lokace("chodba", "Tady si se probudil, začíná tu celá hra", baterka, dopis, batoh);
+        Lokace vychod = new Lokace("vychod", "Východ z hrobky");
+        Lokace velkaHala = new Lokace("velka_hala", "Velká hala, ze které jde vyjít ", nahrdelnik);
+        Lokace obetniMistnost = new Lokace("obetni_mistnost", "Místnost s obětmi pro faraona", jidloProPsa);
+        Lokace faraonovaHrobka = new Lokace("faraonova_hrobka", "Hrobka faraona");
+        Lokace sluzebnickaHrobka = new Lokace("sluzebnicka_hrobka", "Hrobka služemních, kteří se nechali pohřbít s faraonem");
 
-        les.pridejVychod(domek);
-        les.pridejVychod(temnyLes);
+        chodba.pridejVychod(vychod);
+        chodba.pridejVychod(velkaHala);
 
-        temnyLes.pridejVychod(les);
-        temnyLes.pridejVychod(jeskyne);
-        temnyLes.pridejVychod(chaloupka);
+        vychod.pridejVychod(chodba);
 
-        chaloupka.pridejVychod(temnyLes);
+        velkaHala.pridejVychod(chodba);
+        velkaHala.pridejVychod(obetniMistnost);
+        velkaHala.pridejVychod(faraonovaHrobka);
+        velkaHala.pridejVychod(sluzebnickaHrobka);
 
-        aktualniLokace = domek;
+        sluzebnickaHrobka.pridejVychod(velkaHala);
+
+        faraonovaHrobka.pridejVychod(velkaHala);
+
+        obetniMistnost.pridejVychod(velkaHala);
+
+
+        aktualniLokace = chodba;
     }
 
     public Lokace getAktualniLokace()

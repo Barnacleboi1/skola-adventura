@@ -5,10 +5,10 @@ public interface PrikazInterface {
     String proved(String[] parametry);
 }
 
-class PrikazKonec implements PrikazInterface {
+class PrikazNasad implements PrikazInterface {
     private Hra aktualniHra;
 
-    public PrikazKonec(Hra aktualniHra) {
+    public PrikazNasad(Hra aktualniHra) {
         this.aktualniHra = aktualniHra;
     }
 
@@ -51,10 +51,10 @@ class PrikazJdi implements  PrikazInterface {
     @Override
     public String proved(String[] parametry) {
         if (parametry.length < 1) {
-            return "Tomu nerozumim, musis mi rict kam jit";
+            return "Tomu nerozumím, musíš mi říct kam jít";
         }
         if (parametry.length > 1) {
-            return "Tomu nerozumím, muzu jit jen na jedno misto";
+            return "Tomu nerozumím, muzu jit jen na jedno misto. Název místnosti s tímto příkazem zadávej s podtržítkem místo mezery.";
         }
         String nazevCilovaLokace = parametry[0];
 
@@ -85,7 +85,7 @@ class PrikazProhledej implements PrikazInterface {
     @Override
     public String proved(String[] parametry) {
         Lokace aktualniLokace = aktualniHra.getHerniSvet().getAktualniLokace();
-        return null;
+        return aktualniLokace.prohledaniMistnosti();
     }
 }
 class PrikazVezmi implements PrikazInterface {
@@ -123,9 +123,9 @@ class PrikazObsahBatohu implements PrikazInterface {
         return null;
     }
 }
-class PrikazPouzijPredmet implements PrikazInterface {
+class PrikazPouzij implements PrikazInterface {
     private Hra aktualniHra;
-    public PrikazPouzijPredmet(Hra aktualniHra) {
+    public PrikazPouzij(Hra aktualniHra) {
         this.aktualniHra = aktualniHra;
     }
     @Override
@@ -137,20 +137,4 @@ class PrikazPouzijPredmet implements PrikazInterface {
         return null;
     }
 }
-class PrikazZanechPredmet implements PrikazInterface {
-    private Hra aktualniHra;
 
-    public PrikazZanechPredmet(Hra aktualniHra) {
-        this.aktualniHra = aktualniHra;
-    }
-
-    @Override
-    public String getNazev() {
-        return null;
-    }
-
-    @Override
-    public String proved(String[] parametry) {
-        return null;
-    }
-}

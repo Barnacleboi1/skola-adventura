@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Hra {
     private HerniSvet herniSvet;
-    List<Predmet> inventar = new ArrayList<>();
+    List<Predmet> inventar;
     private boolean hraSkoncila;
     private Set<PrikazInterface> prikazy;
 
@@ -12,15 +12,16 @@ public class Hra {
         herniSvet = new HerniSvet();
         hraSkoncila = false;
 
+        inventar = new ArrayList<>();
+
         prikazy = new HashSet<>();
-        prikazy.add(new PrikazKonec(this));
+        prikazy.add(new PrikazNasad(this));
         prikazy.add(new PrikazNapoveda());
         prikazy.add(new PrikazJdi(this));
         prikazy.add(new PrikazProhledej(this));
         prikazy.add(new PrikazVezmi(this));
         prikazy.add(new PrikazObsahBatohu(this));
-        prikazy.add(new PrikazPouzijPredmet(this));
-        prikazy.add(new PrikazZanechPredmet(this));
+        prikazy.add(new PrikazPouzij(this));
     }
     public String zpracujPrikaz(String vstupUzivatele) {
         String[] array = vstupUzivatele.split(" ");
@@ -59,15 +60,18 @@ public class Hra {
         }
         return "Na předmět nemáš místo";
     }
-    public String odeberPredmet(Predmet predmet) {
-
-        inventar.remove(predmet);
-    }
     public boolean isHraSkoncila() {
         return hraSkoncila;
     }
 
     public void setHraSkoncila(boolean hraSkoncila) {
         this.hraSkoncila = hraSkoncila;
+    }
+    public String getProlog() {
+        return "Probouzíš se v chodbě staré egyptské hrobky. Všude kolem je tma.";
+    }
+
+    public String getEpilog() {
+        return "Po vstupu do místnosti vidíš, že se otevírá východ z hrobky. Tím tvá noční můra končí.";
     }
 }

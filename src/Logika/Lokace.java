@@ -1,19 +1,20 @@
 package Logika;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Lokace {
     private String nazev;
     private String popis;
     private Set<Lokace> vychody;
-    private Predmet[] predmetyVLokaci;
+    private List<Predmet> predmetyVLokaci;
 
     public Lokace(String nazev, String popis, Predmet... predmetyVLokaci) {
         this.nazev = nazev;
         this.popis = popis;
         this.vychody = new HashSet<>();
-        this.predmetyVLokaci = predmetyVLokaci;
+        this.predmetyVLokaci = List.of(predmetyVLokaci);
     }
 
     public void pridejVychod(Lokace lokace) {
@@ -27,8 +28,8 @@ public class Lokace {
         }
         return false;
     }
-    public String nechTuPredmet(Predmet predmet) {
-
+    public void odeberpredmet(Predmet predmet) {
+        predmetyVLokaci.remove(predmet);
     }
     public Lokace getVychod(String nazevLokace) {
         for (Lokace lokace : vychody) {
@@ -39,7 +40,34 @@ public class Lokace {
         return null;
     }
 
+    public List<Predmet> getPredmetyVLokaci() {
+        return predmetyVLokaci;
+    }
 
+    public String stringPredmetuVLokaci() {
+        StringBuilder predmety = new StringBuilder();
+        for (Predmet predmet : predmetyVLokaci) {
+            predmety.append(predmet.getNazev()).append(", ");
+        }
+        return predmety.toString();
+    }
+
+    public String stringVychodu() {
+        StringBuilder vychodyString = new StringBuilder();
+        for (Lokace v : vychody) {
+            vychodyString.append(v.getNazev()).append(", ");
+        }
+        return vychodyString.toString();
+    }
+    public String prohledaniMistnosti() {
+        return  "Po prohledání místnosti si zjistil:\n" +
+                "\n" +
+                "Jsi v místnosti:\n" + this.getNazev() +
+                "\n" +
+                "V místnosti jsou předměty:\n" + stringPredmetuVLokaci() +
+                "\n" +
+                "Místnost má východy do:" + stringVychodu();
+    }
     public String getNazev() {
         return nazev;
     }
