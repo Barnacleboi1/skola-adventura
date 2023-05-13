@@ -64,9 +64,12 @@ class PrikazJdi implements  PrikazInterface {
             return "do teto lokace se neda jit";
         }
         boolean maBaterku = false;
+        boolean jeRozsvicena = false;
+
         for (Predmet predmet : aktualniHra.getInventar()) {
             if (predmet.getNazev().equals("baterka")) {
                 maBaterku = true;
+                jeRozsvicena = predmet.isRozsvicena();
                 break;
             }
             else {
@@ -75,6 +78,9 @@ class PrikazJdi implements  PrikazInterface {
         }
         if (!maBaterku) {
             return "Všude je tma, potřebuješ baterku.";
+        }
+        if (!jeRozsvicena) {
+            return "Baterku musíš také rozsvítit!";
         }
 
         Lokace cilovaLokace = aktualniLokace.getVychod(nazevCilovaLokace);
@@ -135,7 +141,7 @@ class PrikazVezmi implements PrikazInterface {
     }
 }
 class PrikazObsahBatohu implements PrikazInterface {
-    Hra aktualniHra;
+    private Hra aktualniHra;
 
     public PrikazObsahBatohu(Hra aktualniHra) {
         this.aktualniHra = aktualniHra;
@@ -143,12 +149,12 @@ class PrikazObsahBatohu implements PrikazInterface {
 
     @Override
     public String getNazev() {
-        return null;
+        return "batoh";
     }
 
     @Override
     public String proved(String[] parametry) {
-        return null;
+        return aktualniHra.obsahBatohu();
     }
 }
 class PrikazPouzij implements PrikazInterface {
@@ -160,6 +166,23 @@ class PrikazPouzij implements PrikazInterface {
     public String getNazev() {
         return null;
     }
+    @Override
+    public String proved(String[] parametry) {
+        return null;
+    }
+}
+class PrikazOdemkni implements PrikazInterface {
+    private Hra aktualniHra;
+
+    public PrikazOdemkni(Hra aktualniHra) {
+        this.aktualniHra = aktualniHra;
+    }
+
+    @Override
+    public String getNazev() {
+        return null;
+    }
+
     @Override
     public String proved(String[] parametry) {
         return null;

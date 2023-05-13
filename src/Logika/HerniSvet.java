@@ -9,26 +9,34 @@ public class HerniSvet
     private List<Predmet> vsechnyPredmety = new ArrayList<>();
     public HerniSvet()
     {
-        Predmet baterka = new Predmet("baterka", false);
+        Predmet baterka = new Predmet(false, "baterka", false);
         Predmet dopis = new Predmet("dopis", false);
         Predmet batoh = new Predmet("batoh", false);
         Predmet nahrdelnik = new Predmet("nahrdelnik", false, false);
-        Predmet jidloProPsa = new Predmet("jidlo pro psa", false);
+        Predmet klic = new Predmet("klic", false);
+        Predmet zlataTruhla = new Predmet("zlata_truhla", false);
+
+        Predmet rubín = new Predmet(true, false, "rubin");
+        Predmet smaragd = new Predmet(true, false, "smaragd");
+        Predmet safír = new Predmet(true, false, "safir");
+        Predmet ametyst = new Predmet(true, false, "ametyst");
 
 
         vsechnyPredmety.add(baterka);
         vsechnyPredmety.add(dopis);
         vsechnyPredmety.add(batoh);
         vsechnyPredmety.add(nahrdelnik);
+        vsechnyPredmety.add(klic);
+        vsechnyPredmety.add(zlataTruhla);
 
 
 
-        Lokace chodba = new Lokace("chodba", "Tady si se probudil, začíná tu celá hra", baterka, dopis, batoh);
-        Lokace vychod = new Lokace("vychod", "Východ z hrobky");
-        Lokace velkaHala = new Lokace("velka_hala", "Velká hala, ze které jde vyjít ", nahrdelnik);
-        Lokace obetniMistnost = new Lokace("obetni_mistnost", "Místnost s obětmi pro faraona", jidloProPsa);
-        Lokace faraonovaHrobka = new Lokace("faraonova_hrobka", "Hrobka faraona");
-        Lokace sluzebnickaHrobka = new Lokace("sluzebnicka_hrobka", "Hrobka služemních, kteří se nechali pohřbít s faraonem");
+        Lokace chodba = new Lokace("chodba", baterka, dopis, batoh);
+        Lokace vychod = new Lokace("vychod");
+        Lokace velkaHala = new Lokace("velka_hala", nahrdelnik);
+        Lokace obetniMistnost = new Lokace("obetni_mistnost", zlataTruhla);
+        Lokace faraonovaHrobka = new Lokace("faraonova_hrobka");
+        Lokace sluzebnickaHrobka = new Lokace("sluzebnicka_hrobka", klic);
 
         chodba.pridejVychod(vychod);
         chodba.pridejVychod(velkaHala);

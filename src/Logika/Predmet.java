@@ -3,7 +3,9 @@ package Logika;
 public class Predmet {
     private String nazev;
     private boolean bylSebran;
-    private boolean nasazen;
+    private boolean jeNasazen;
+    private boolean jeRozsvicena;
+    private boolean jeDrahokam;
 
     //kontsruktor normálních předmětů
 
@@ -13,11 +15,22 @@ public class Predmet {
     }
 
     //konstruktor náhrdelníku
-    public Predmet(String nazev, boolean bylSebran, boolean nasazen) {
+    public Predmet(String nazev, boolean bylSebran, boolean jeNasazen) {
         this(nazev, bylSebran);
-        this.nasazen = nasazen;
+        this.jeNasazen = jeNasazen;
     }
 
+    //kontruktor baterky
+    public Predmet(boolean bylSebran, String nazev, boolean jeRozsvicena) {
+        this(nazev, bylSebran);
+        this.jeRozsvicena = jeRozsvicena;
+    }
+
+    //kontruktor drahokamů
+    public Predmet(boolean jeDrahokam, boolean bylSebran, String nazev) {
+        this(nazev, bylSebran);
+        this.jeDrahokam = jeDrahokam;
+    }
     public String getNazev() {
         return nazev;
     }
@@ -32,5 +45,13 @@ public class Predmet {
 
     public void setBylSebran(boolean bylSebran) {
         this.bylSebran = bylSebran;
+    }
+
+    public boolean isNasazen() {
+        return jeNasazen;
+    }
+
+    public boolean isRozsvicena() {
+        return jeRozsvicena;
     }
 }

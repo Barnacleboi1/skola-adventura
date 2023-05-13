@@ -4,13 +4,11 @@ import java.util.*;
 
 public class Lokace {
     private String nazev;
-    private String popis;
     private Set<Lokace> vychody;
     private List<Predmet> predmetyVLokaci;
 
-    public Lokace(String nazev, String popis, Predmet... predmetyVLokaci) {
+    public Lokace(String nazev, Predmet... predmetyVLokaci) {
         this.nazev = nazev;
-        this.popis = popis;
         this.vychody = new HashSet<>();
         this.predmetyVLokaci = new ArrayList<>(Arrays.asList(predmetyVLokaci));
     }
@@ -71,15 +69,6 @@ public class Lokace {
     public void setNazev(String nazev) {
         this.nazev = nazev;
     }
-
-    public String getPopis() {
-        return popis;
-    }
-
-    public void setPopis(String popis) {
-        this.popis = popis;
-    }
-
     public Set<Lokace> getVychody() {
         return vychody;
     }

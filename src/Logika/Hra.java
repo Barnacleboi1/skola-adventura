@@ -22,6 +22,7 @@ public class Hra {
         prikazy.add(new PrikazVezmi(this));
         prikazy.add(new PrikazObsahBatohu(this));
         prikazy.add(new PrikazPouzij(this));
+        prikazy.add(new PrikazOdemkni(this));
     }
     public String zpracujPrikaz(String vstupUzivatele) {
         String[] array = vstupUzivatele.split(" ");
@@ -60,6 +61,15 @@ public class Hra {
         }
         return "Na předmět nemáš místo, možná by se hodil nějaký batoh.";
     }
+    public String obsahBatohu() {
+        StringBuilder batohString = new StringBuilder();
+        for (Predmet predmet : inventar) {
+            if (!predmet.getNazev().equals("batoh")) {
+                batohString.append(predmet.getNazev()).append(", ");
+            }
+        }
+        return "Obsah batohu: " + batohString;
+    }
     public boolean isHraSkoncila() {
         return hraSkoncila;
     }
@@ -77,5 +87,20 @@ public class Hra {
 
     public List<Predmet> getInventar() {
         return inventar;
+    }
+    public String napoveda() {
+        return """
+                Tvým úkolem je dostat se s hrobky. Abys toto mohl splnit,
+                tak je potřeba posbírat všechny potřebné drahokamy a nasadit je na náhrdelník, který si je potřeba nasadit.
+                Po příchodu do místnosti východ s nasazeným náhrdelníkem se ti otevře východ a hra skončí.
+                Použitelné příkazy:
+                nasaď
+                nápověda
+                jdi
+                prohledej
+                vezmi
+                batoh
+                použij
+                odemkni""";
     }
 }
