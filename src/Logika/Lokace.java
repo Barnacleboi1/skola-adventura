@@ -1,8 +1,6 @@
 package Logika;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Lokace {
     private String nazev;
@@ -14,7 +12,7 @@ public class Lokace {
         this.nazev = nazev;
         this.popis = popis;
         this.vychody = new HashSet<>();
-        this.predmetyVLokaci = List.of(predmetyVLokaci);
+        this.predmetyVLokaci = new ArrayList<>(Arrays.asList(predmetyVLokaci));
     }
 
     public void pridejVychod(Lokace lokace) {
@@ -62,11 +60,9 @@ public class Lokace {
     public String prohledaniMistnosti() {
         return  "Po prohledání místnosti si zjistil:\n" +
                 "\n" +
-                "Jsi v místnosti:\n" + this.getNazev() +
-                "\n" +
-                "V místnosti jsou předměty:\n" + stringPredmetuVLokaci() +
-                "\n" +
-                "Místnost má východy do:" + stringVychodu();
+                "Jsi v místnosti: " + this.getNazev() +
+                "\nV místnosti jsou předměty: " + stringPredmetuVLokaci() +
+                "\nMístnost má východy do: " + stringVychodu();
     }
     public String getNazev() {
         return nazev;

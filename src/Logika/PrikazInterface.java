@@ -19,7 +19,7 @@ class PrikazNasad implements PrikazInterface {
 
     @Override
     public String proved(String[] parametry) {
-        aktualniHra.setHraSkoncila(true);
+
         return "hra byla ukonecna";
     }
 }
@@ -63,11 +63,24 @@ class PrikazJdi implements  PrikazInterface {
         if (!aktualniLokace.maVychod(nazevCilovaLokace)) {
             return "do teto lokace se neda jit";
         }
+        boolean maBaterku = false;
+        for (Predmet predmet : aktualniHra.getInventar()) {
+            if (predmet.getNazev().equals("baterka")) {
+                maBaterku = true;
+                break;
+            }
+            else {
+                maBaterku = false;
+            }
+        }
+        if (!maBaterku) {
+            return "Všude je tma, potřebuješ baterku.";
+        }
 
         Lokace cilovaLokace = aktualniLokace.getVychod(nazevCilovaLokace);
         aktualniHra.getHerniSvet().setAktualniLokace(cilovaLokace);
 
-        return "Jdeš" + cilovaLokace;
+        return "Jdeš do " + cilovaLokace.getNazev();
     }
 }
 class PrikazProhledej implements PrikazInterface {
@@ -98,12 +111,27 @@ class PrikazVezmi implements PrikazInterface {
 
     @Override
     public String getNazev() {
-        return null;
+        return "vezmi";
     }
 
     @Override
     public String proved(String[] parametry) {
-        return null;
+        if (parametry.length < 1) {
+            return "Tomu nerozumím, musíš mi říct co mám vzíz";
+        }
+        if (parametry.length > 1) {
+            return "Tomu nerozumím, můžu vzít jen jednu věc.";
+        }
+        String predmet = parametry[0];
+        Lokace aktualniLokace = aktualniHra.getHerniSvet().getAktualniLokace();
+        for (Predmet predmet1 : aktualniLokace.getPredmetyVLokaci()) {
+            if (predmet1.getNazev().equals(predmet)) {
+                predmet1.setBylSebran(true);
+                aktualniLokace.odeberpredmet(predmet1);
+                return aktualniHra.pridejPredmet(predmet1);
+            }
+        }
+        return "Takový předmět v lokaci není.";
     }
 }
 class PrikazObsahBatohu implements PrikazInterface {

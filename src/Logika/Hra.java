@@ -28,12 +28,12 @@ public class Hra {
         String prikaz = array[0];
 
         for (PrikazInterface p : prikazy) {
-            if (p.getNazev().equals(prikaz)){
+            if (prikaz.equals(p.getNazev())){
                 return p.proved(Arrays.copyOfRange(array, 1, array.length));
             }
         }
 
-        return "Příkaz " + prikaz + "neznám.";
+        return "Příkaz " + prikaz + " neznám.";
     }
     public HerniSvet getHerniSvet() {
         return herniSvet;
@@ -58,7 +58,7 @@ public class Hra {
             inventar.add(predmet);
             return "Vzal si " + predmet.getNazev();
         }
-        return "Na předmět nemáš místo";
+        return "Na předmět nemáš místo, možná by se hodil nějaký batoh.";
     }
     public boolean isHraSkoncila() {
         return hraSkoncila;
@@ -73,5 +73,9 @@ public class Hra {
 
     public String getEpilog() {
         return "Po vstupu do místnosti vidíš, že se otevírá východ z hrobky. Tím tvá noční můra končí.";
+    }
+
+    public List<Predmet> getInventar() {
+        return inventar;
     }
 }

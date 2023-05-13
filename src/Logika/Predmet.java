@@ -5,11 +5,14 @@ public class Predmet {
     private boolean bylSebran;
     private boolean nasazen;
 
+    //kontsruktor normálních předmětů
+
     public Predmet(String nazev, boolean bylSebran) {
         this.nazev = nazev;
         this.bylSebran = bylSebran;
     }
 
+    //konstruktor náhrdelníku
     public Predmet(String nazev, boolean bylSebran, boolean nasazen) {
         this(nazev, bylSebran);
         this.nasazen = nasazen;
