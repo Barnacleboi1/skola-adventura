@@ -1,11 +1,20 @@
 package Logika;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+
 public class Predmet {
     private String nazev;
     private boolean bylSebran;
-    private boolean jeNasazen;
+    private boolean jeNahrdelnik;
     private boolean jeRozsvicena;
+    private boolean jeBaterka;
     private boolean jeDrahokam;
+    private boolean jeTruhla;
+    private List<Predmet> drahokamy;
+    private Predmet klíč;
 
     //kontsruktor normálních předmětů
 
@@ -15,21 +24,50 @@ public class Predmet {
     }
 
     //konstruktor náhrdelníku
-    public Predmet(String nazev, boolean bylSebran, boolean jeNasazen) {
+    public Predmet(String nazev, boolean bylSebran, boolean jeNahrdelnik) {
         this(nazev, bylSebran);
-        this.jeNasazen = jeNasazen;
+        this.jeNahrdelnik = jeNahrdelnik;
+        this.drahokamy = new ArrayList<>();
     }
 
     //kontruktor baterky
-    public Predmet(boolean bylSebran, String nazev, boolean jeRozsvicena) {
+    public Predmet(boolean bylSebran, String nazev, boolean jeBaterka) {
         this(nazev, bylSebran);
-        this.jeRozsvicena = jeRozsvicena;
+        this.jeBaterka = jeBaterka;
+        this.jeRozsvicena = false;
+    }
+    //konstruktor truhly
+    public Predmet(String nazev, boolean bylSebran, boolean jeTruhla, Predmet klíč, Predmet... drahokamy) {
+        this(nazev, bylSebran);
+        this.jeTruhla = jeTruhla;
+        this.drahokamy = new ArrayList<>(Arrays.asList(drahokamy));
+        this.klíč = klíč;
     }
 
     //kontruktor drahokamů
     public Predmet(boolean jeDrahokam, boolean bylSebran, String nazev) {
         this(nazev, bylSebran);
         this.jeDrahokam = jeDrahokam;
+    }
+    public String pouzij(Hra aktualniHra) {
+        if (jeBaterka) {
+            setJeRozsvicena(true);
+            return "Rozsvítil si baterku.";
+        }
+        if (jeDrahokam) {
+            if (aktualniHra.isNahrdelnikNasazen()) {
+                aktualniHra.getNahrdelnik().pridejDrahokam(this);
+                aktualniHra.odeberPredmet(this);
+                return "Nasadil si drahokam do náhrdelníku.";
+            }
+            else {
+                return "Nejdřív musíš nasadit náhrdelník, abys do něj mohl dávat drahokamy.";
+            }
+        }
+        return "Tento předmět se nedá nijak použít.";
+    }
+    public List<Predmet> getDrahokamy() {
+        return drahokamy;
     }
     public String getNazev() {
         return nazev;
@@ -47,11 +85,36 @@ public class Predmet {
         this.bylSebran = bylSebran;
     }
 
-    public boolean isNasazen() {
-        return jeNasazen;
+    public boolean isJeNahrdelnik() {
+        return jeNahrdelnik;
     }
 
     public boolean isRozsvicena() {
         return jeRozsvicena;
+    }
+
+    public void setJeRozsvicena(boolean jeRozsvicena) {
+        this.jeRozsvicena = jeRozsvicena;
+    }
+
+    public Predmet getKlíč() {
+        return klíč;
+    }
+    public void pridejDrahokam(Predmet drahokam) {
+        drahokamy.add(drahokam);
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Predmet predmet = (Predmet) o;
+
+        return Objects.equals(nazev, predmet.nazev);
+    }
+
+    @Override
+    public int hashCode() {
+        return nazev != null ? nazev.hashCode() : 0;
     }
 }

@@ -14,17 +14,24 @@ class PrikazNasad implements PrikazInterface {
 
     @Override
     public String getNazev() {
-        return "Konec";
+        return "nasad";
     }
 
     @Override
     public String proved(String[] parametry) {
-
-        return "hra byla ukonecna";
+        if (parametry.length != 0) {
+            return "Tento příkaz nemá žádne parametry.";
+        }
+        return aktualniHra.nasazeniNahrdelniku();
     }
 }
 
 class PrikazNapoveda implements  PrikazInterface {
+    private Hra aktualniHra;
+
+    public PrikazNapoveda(Hra aktualniHra) {
+        this.aktualniHra = aktualniHra;
+    }
 
     @Override
     public String getNazev() {
@@ -33,7 +40,7 @@ class PrikazNapoveda implements  PrikazInterface {
 
     @Override
     public String proved(String[] parametry) {
-        return "Dostanes napovedu";
+        return aktualniHra.napoveda();
     }
 }
 class PrikazJdi implements  PrikazInterface {
@@ -67,7 +74,7 @@ class PrikazJdi implements  PrikazInterface {
         boolean jeRozsvicena = false;
 
         for (Predmet predmet : aktualniHra.getInventar()) {
-            if (predmet.getNazev().equals("baterka")) {
+            if (predmet.getNazev().equalsIgnoreCase("baterka")) {
                 maBaterku = true;
                 jeRozsvicena = predmet.isRozsvicena();
                 break;
@@ -85,7 +92,12 @@ class PrikazJdi implements  PrikazInterface {
 
         Lokace cilovaLokace = aktualniLokace.getVychod(nazevCilovaLokace);
         aktualniHra.getHerniSvet().setAktualniLokace(cilovaLokace);
-
+        if (aktualniHra.getNahrdelnik() != null) {
+            if (aktualniHra.jeDostDrahokamu() && nazevCilovaLokace.equals("vychod")) {
+                aktualniHra.setHraSkoncila(true);
+                return aktualniHra.getEpilog();
+            }
+        }
         return "Jdeš do " + cilovaLokace.getNazev();
     }
 }
@@ -131,9 +143,7 @@ class PrikazVezmi implements PrikazInterface {
         String predmet = parametry[0];
         Lokace aktualniLokace = aktualniHra.getHerniSvet().getAktualniLokace();
         for (Predmet predmet1 : aktualniLokace.getPredmetyVLokaci()) {
-            if (predmet1.getNazev().equals(predmet)) {
-                predmet1.setBylSebran(true);
-                aktualniLokace.odeberpredmet(predmet1);
+            if (predmet1.getNazev().equalsIgnoreCase(predmet)) {
                 return aktualniHra.pridejPredmet(predmet1);
             }
         }
@@ -164,11 +174,27 @@ class PrikazPouzij implements PrikazInterface {
     }
     @Override
     public String getNazev() {
-        return null;
+        return "pouzij";
     }
     @Override
     public String proved(String[] parametry) {
-        return null;
+        if (parametry.length == 0) {
+            return "Musíš říct, co chceš použít";
+        }
+        if (parametry.length == 2) {
+            return "Můžeš použít jeden předmět najednou.";
+        }
+        String jmenoPredmetu = parametry[0];
+        Predmet predmet = null;
+        for (Predmet p : aktualniHra.getInventar()) {
+            if (p.getNazev().equalsIgnoreCase(jmenoPredmetu)) {
+                predmet = p;
+            }
+        }
+        if (predmet == null) {
+            return "Tento předmět nemáš v inventáři.";
+        }
+        return predmet.pouzij(aktualniHra);
     }
 }
 class PrikazOdemkni implements PrikazInterface {
@@ -180,12 +206,85 @@ class PrikazOdemkni implements PrikazInterface {
 
     @Override
     public String getNazev() {
-        return null;
+        return "odemkni";
     }
 
     @Override
     public String proved(String[] parametry) {
-        return null;
+        if (parametry.length == 0) {
+            return "Musíš říct, co chceš odemknout.";
+        }
+        if (parametry.length == 2) {
+            return "Můžeš odemknout jednu truhlu najednou.";
+        }
+        Predmet truhla = null;
+        Predmet klíč = null;
+        boolean máKlíč = false;
+        String jmenoPredmetu = parametry[0];
+        StringBuilder stringDrahokamu = new StringBuilder();
+
+
+        for (Predmet predmet : aktualniHra.getInventar()) {
+            if (predmet.getNazev().equalsIgnoreCase(jmenoPredmetu)) {
+                truhla = predmet;
+            }
+            if (predmet.getNazev().equals("klic")) {
+                klíč = predmet;
+                máKlíč = true;
+            }
+        }
+        if (truhla == null) {
+            return "Takovou truhlu nemáš v batohu.";
+        }
+        else {
+            if (!máKlíč) {
+                return "K této truhle nemáš klíč";
+            }
+            else {
+                for (Predmet drahokam : truhla.getDrahokamy()) {
+                    aktualniHra.pridejPredmet(drahokam);
+                    stringDrahokamu.append(drahokam.getNazev()).append(", ");
+                }
+                aktualniHra.odeberPredmet(klíč);
+                aktualniHra.odeberPredmet(truhla);
+                return "Otevřel si" + jmenoPredmetu + "\n"
+                        + "našel si v ní: " + stringDrahokamu;
+            }
+        }
+
+    }
+}
+class PrikazMluv implements PrikazInterface {
+    private Hra aktualniHra;
+
+    public PrikazMluv(Hra aktualniHra) {
+        this.aktualniHra = aktualniHra;
+    }
+
+    @Override
+    public String getNazev() {
+        return "mluv";
+    }
+
+    @Override
+    public String proved(String[] parametry) {
+        if (parametry.length == 0) {
+            return "Musíš říct, na koho chceš mluvit";
+        }
+        if (parametry.length == 2) {
+            return "Můžeš mluvit jen na jednoho člověka najednou.";
+        }
+        Postava postava = null;
+        String jmenoPostavy = parametry[0];
+        for (Postava p : aktualniHra.getHerniSvet().getAktualniLokace().getPostavyVLokaci()) {
+            if (jmenoPostavy.equalsIgnoreCase(p.getJmeno())) {
+                postava = p;
+            }
+        }
+        if (postava == null) {
+            return "Taková postava v této lokaci není.";
+        }
+        return postava.promluva();
     }
 }
 

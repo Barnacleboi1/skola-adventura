@@ -36,6 +36,5 @@ public class TextoveRozhrani
             System.out.println(aktualniHra.zpracujPrikaz(vstupUzivatele));
         }
 
-        System.out.println("\n" + aktualniHra.getEpilog());
     }
 }
