@@ -5,6 +5,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Třída představující předměty vyskytujíci se ve hře.
+ * Atributy jsou název a poté několik boolean,
+ * které určují jaký typ předmětu to je, a nebo jestli byl použit nebo sebrán.
+ * Také se u určitých typů předmětu ukládá i seznam drahokamů, nebo i klič, kterým předmět jde odemknout.
+ *
+ * @author Robert Čuda
+ * @Version 17.5.2023
+ */
+
 public class Predmet {
     private String nazev;
     private boolean bylSebran;
@@ -12,7 +22,6 @@ public class Predmet {
     private boolean jeRozsvicena;
     private boolean jeBaterka;
     private boolean jeDrahokam;
-    private boolean jeTruhla;
     private List<Predmet> drahokamy;
     private Predmet klíč;
 
@@ -37,9 +46,8 @@ public class Predmet {
         this.jeRozsvicena = false;
     }
     //konstruktor truhly
-    public Predmet(String nazev, boolean bylSebran, boolean jeTruhla, Predmet klíč, Predmet... drahokamy) {
+    public Predmet(String nazev, boolean bylSebran, Predmet klíč, Predmet... drahokamy) {
         this(nazev, bylSebran);
-        this.jeTruhla = jeTruhla;
         this.drahokamy = new ArrayList<>(Arrays.asList(drahokamy));
         this.klíč = klíč;
     }
@@ -51,8 +59,14 @@ public class Predmet {
     }
     public String pouzij(Hra aktualniHra) {
         if (jeBaterka) {
-            setJeRozsvicena(true);
-            return "Rozsvítil si baterku.";
+            if (!jeRozsvicena) {
+                setJeRozsvicena(true);
+                return "Rozsvítil si baterku.";
+            }
+            else {
+                setJeRozsvicena(false);
+                return "Zhasl si baterku";
+            }
         }
         if (jeDrahokam) {
             if (aktualniHra.isNahrdelnikNasazen()) {

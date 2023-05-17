@@ -1,6 +1,13 @@
 package Logika;
 
 import java.util.*;
+/**
+ * Třída představující Lokaci v našem herním světě. Je uchováván název lokace,
+ * vychody, kterými může hráč projít do jiných lokací a také Listy předmětů a postav v dané lokaci
+ *
+ * @author Robert Čuda
+ * @Version 17.5.2023
+ */
 
 public class Lokace {
     private String nazev;
@@ -97,5 +104,20 @@ public class Lokace {
 
     public List<Postava> getPostavyVLokaci() {
         return postavyVLokaci;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Lokace lokace = (Lokace) o;
+
+        return Objects.equals(nazev, lokace.nazev);
+    }
+
+    @Override
+    public int hashCode() {
+        return nazev != null ? nazev.hashCode() : 0;
     }
 }

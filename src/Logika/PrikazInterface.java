@@ -1,10 +1,20 @@
 package Logika;
-
+/**
+ * Rozhrání, které definuje metody, které implementují všechny příkazy ve hře.
+ *
+ * @author Robert Čuda
+ * @Version 17.5.2023
+ */
 public interface PrikazInterface {
     String getNazev();
     String proved(String[] parametry);
 }
-
+/**
+ * Třída příkazu, kterým si hráč nasazuje náhrdelník na "sebe"
+ *
+ * @author Robert Čuda
+ * @Version 17.5.2023
+ */
 class PrikazNasad implements PrikazInterface {
     private Hra aktualniHra;
 
@@ -25,7 +35,12 @@ class PrikazNasad implements PrikazInterface {
         return aktualniHra.nasazeniNahrdelniku();
     }
 }
-
+/**
+ * Třída příkazu, který zobrazí hráči cíl hry a možné příkazy.
+ *
+ * @author Robert Čuda
+ * @Version 17.5.2023
+ */
 class PrikazNapoveda implements  PrikazInterface {
     private Hra aktualniHra;
 
@@ -43,6 +58,12 @@ class PrikazNapoveda implements  PrikazInterface {
         return aktualniHra.napoveda();
     }
 }
+/**
+ * Třída příkazu, který umožňuje hráči pohyb mezi lokacemi
+ *
+ * @author Robert Čuda
+ * @Version 17.5.2023
+ */
 class PrikazJdi implements  PrikazInterface {
     private Hra aktualniHra;
 
@@ -87,7 +108,7 @@ class PrikazJdi implements  PrikazInterface {
             return "Všude je tma, potřebuješ baterku.";
         }
         if (!jeRozsvicena) {
-            return "Baterku musíš také rozsvítit!";
+            return "Baterku musíš rozsvítit!";
         }
 
         Lokace cilovaLokace = aktualniLokace.getVychod(nazevCilovaLokace);
@@ -101,6 +122,12 @@ class PrikazJdi implements  PrikazInterface {
         return "Jdeš do " + cilovaLokace.getNazev();
     }
 }
+/**
+ * Třída příkazu, kterým hráč prohledává aktuální lokaci, ve které je.
+ *
+ * @author Robert Čuda
+ * @Version 17.5.2023
+ */
 class PrikazProhledej implements PrikazInterface {
     private Hra aktualniHra;
 
@@ -119,6 +146,12 @@ class PrikazProhledej implements PrikazInterface {
         return aktualniLokace.prohledaniMistnosti();
     }
 }
+/**
+ * Třída příkazu, kterým hráč může sbírav předměty, které jsou s ním v místnosti
+ *
+ * @author Robert Čuda
+ * @Version 17.5.2023
+ */
 class PrikazVezmi implements PrikazInterface {
 
     private Hra aktualniHra;
@@ -150,6 +183,12 @@ class PrikazVezmi implements PrikazInterface {
         return "Takový předmět v lokaci není.";
     }
 }
+/**
+ * Třída příkazu, který zobrazí hráči obsah jeho batohu.
+ *
+ * @author Robert Čuda
+ * @Version 17.5.2023
+ */
 class PrikazObsahBatohu implements PrikazInterface {
     private Hra aktualniHra;
 
@@ -167,6 +206,12 @@ class PrikazObsahBatohu implements PrikazInterface {
         return aktualniHra.obsahBatohu();
     }
 }
+/**
+ * Třída příkazu, kterým může hráč používat předměty v jeho inventáři.
+ *
+ * @author Robert Čuda
+ * @Version 17.5.2023
+ */
 class PrikazPouzij implements PrikazInterface {
     private Hra aktualniHra;
     public PrikazPouzij(Hra aktualniHra) {
@@ -197,6 +242,12 @@ class PrikazPouzij implements PrikazInterface {
         return predmet.pouzij(aktualniHra);
     }
 }
+/**
+ * Třída příkazu, kterým může hráč odemykat truhly v jeho inventáři.
+ *
+ * @author Robert Čuda
+ * @Version 17.5.2023
+ */
 class PrikazOdemkni implements PrikazInterface {
     private Hra aktualniHra;
 
@@ -254,6 +305,12 @@ class PrikazOdemkni implements PrikazInterface {
 
     }
 }
+/**
+ * Třída příkazu, který umožňuje hráči komunikaci s postavami ve stejné lokaci
+ *
+ * @author Robert Čuda
+ * @Version 17.5.2023
+ */
 class PrikazMluv implements PrikazInterface {
     private Hra aktualniHra;
 

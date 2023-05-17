@@ -2,9 +2,17 @@ package Logika;
 
 import java.util.*;
 
+/**
+ * Třída Hry. uchovává odkaz na instanci třídy HerniSvet, představující mapu.
+ * Také uchovává hráčův inventář, boolan zda hra skončila, kolekci použitelných příkazů a
+ * také uchovává atributy nahrdelnikNasazen a nahrdelnik, které jsou potřebné pro naši hru
+ *
+ * @author Robert Čuda
+ * @Version 17.5.2023
+ */
 public class Hra {
     private HerniSvet herniSvet;
-    List<Predmet> inventar;
+    private List<Predmet> inventar;
     private boolean hraSkoncila;
     private Set<PrikazInterface> prikazy;
     private boolean nahrdelnikNasazen;
@@ -133,7 +141,7 @@ public class Hra {
     public String napoveda() {
         return """
                 Tvým úkolem je dostat se s hrobky. Abys toto mohl splnit,
-                tak je potřeba posbírat všechny potřebné drahokamy a nasadit je na náhrdelník, který si je potřeba nasadit.
+                tak je potřeba posbírat všechny potřebné drahokamy a nasadit je na náhrdelník.
                 Po příchodu do místnosti východ s nasazeným náhrdelníkem se ti otevře východ a hra skončí.
                 Použitelné příkazy:
                 nasad

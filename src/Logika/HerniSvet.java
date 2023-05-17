@@ -3,6 +3,16 @@ package Logika;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Třída představující mapu lokací herního světa. V datovém atributu
+ * aktualniLokace uchovává aktuální lokaci ve hře. V datovém atributu vsechnyPredmety
+ * jsou uchovávány všechny předměty po celé hře.
+ *
+ * @author Robert Čuda
+ * @Version 17.5.2023
+ */
+
+
 public class HerniSvet
 {
     private Lokace aktualniLokace;
@@ -21,7 +31,7 @@ public class HerniSvet
         Predmet safír = new Predmet(true, false, "safir");
         Predmet ametyst = new Predmet(true, false, "ametyst");
 
-        Predmet zlataTruhla = new Predmet("zlata_truhla", false, true, klic, safír, ametyst);
+        Predmet zlataTruhla = new Predmet("zlata_truhla", false, klic, safír, ametyst);
 
         Postava anubis = new Postava("anubis", "zdravím"
                 , "vypadáš ztraceně"
