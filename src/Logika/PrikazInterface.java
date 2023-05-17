@@ -298,7 +298,7 @@ class PrikazOdemkni implements PrikazInterface {
                 }
                 aktualniHra.odeberPredmet(klíč);
                 aktualniHra.odeberPredmet(truhla);
-                return "Otevřel si" + jmenoPredmetu + "\n"
+                return "Otevřel si " + jmenoPredmetu + "\n"
                         + "našel si v ní: " + stringDrahokamu;
             }
         }
