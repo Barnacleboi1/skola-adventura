@@ -17,6 +17,10 @@ public class Hra {
     private Set<PrikazInterface> prikazy;
     private boolean nahrdelnikNasazen;
     private Predmet nahrdelnik;
+    /**
+     * Konstruktor hry,vytvoří nový herní svět, inventář a množinu příkazů, které může hráč použít
+     *
+     */
     public Hra() {
         herniSvet = new HerniSvet();
         hraSkoncila = false;
@@ -37,6 +41,11 @@ public class Hra {
         prikazy.add(new PrikazMluv(this));
         prikazy.add(new PrikazPoloz(this));
     }
+    /**
+     * Metoda, která zpracovává vstupy uživatele a určuje,
+     * jaký příkaz hodlá použít a volá metodu  "proved" daneho příkazu
+     *
+     */
     public String zpracujPrikaz(String vstupUzivatele) {
         String[] array = vstupUzivatele.split(" ");
         String prikaz = array[0];
@@ -49,9 +58,17 @@ public class Hra {
 
         return "Příkaz " + prikaz + " neznám.";
     }
+    /**
+     * Metoda, která vrací herní svět
+     */
     public HerniSvet getHerniSvet() {
         return herniSvet;
     }
+    /**
+     * Metoda, která určuje, jestli hráč sebral batoh.
+     * vrací true pokud má batoh, jako instance classy Predmet, boolean bylSebran = true, pokud ne tak false
+     *
+     */
     public boolean maBatoh() {
         for (Predmet predmet : herniSvet.getVsechnyPredmety()) {
             if (predmet.getNazev().equals("batoh")) {
@@ -60,9 +77,20 @@ public class Hra {
         }
         return false;
     }
+    /**
+     * Metoda odebírající předmět z inventáře hráče
+     *
+     */
     public void odeberPredmet(Predmet predmet) {
+        predmet.setBylSebran(false);
         inventar.remove(predmet);
     }
+    /**
+     * Metoda přidávájící předmět do inventáře hráče, kontroluje,
+     * jestli má hráč batoh (pomocí metohdy maBatoh()) a jestli má na předmět místo. metoda vrací string,
+     * který oznamuje jestli byl předmět úspěšně sebrán nebo ne
+     *
+     */
     public String pridejPredmet(Predmet predmet) {
         int kapacita;
         if (maBatoh()) {
@@ -79,6 +107,10 @@ public class Hra {
         }
         return "Na předmět nemáš místo, možná by se hodil nějaký batoh.";
     }
+    /**
+     * Metoda vracející String se všemi předměty, co hráč má v batohu
+     *
+     */
     public String obsahBatohu() {
         StringBuilder batohString = new StringBuilder();
         for (Predmet predmet : inventar) {
@@ -88,27 +120,57 @@ public class Hra {
         }
         return "Obsah batohu: " + batohString;
     }
+    /**
+     * Metoda, která vrací true, když hra skončila, false jestli ne
+     *
+     */
     public boolean isHraSkoncila() {
         return hraSkoncila;
     }
-
+    /**
+     * Metoda nastaví hodnotu hraSkoncila. Metodu voláme pokud hráč došel do poslední místnosti
+     * se všemi potřebnými drahokamy a nasazeným náhrdelníkem
+     *
+     */
     public void setHraSkoncila(boolean hraSkoncila) {
         this.hraSkoncila = hraSkoncila;
     }
+    /**
+     * Metoda vracející string, který uvítává hru a také informace o první místnosti.
+     *
+     */
     public String getProlog() {
         return "Probouzíš se v chodbě staré egyptské hrobky. Všude kolem je tma." + "\n"
                 + herniSvet.getAktualniLokace().prohledaniMistnosti();
     }
-
+    /**
+     * Metoda vracející String, který hru zakončuje.
+     *
+     */
     public String getEpilog() {
         return "Po vstupu do místnosti vidíš, že se otevírá východ z hrobky. Tím tvá noční můra končí.";
     }
+    /**
+     * Metoda, která určuje jestli je dpost drahokamu, aby mohl hráč vyhrát.
+     *
+     */
     public boolean jeDostDrahokamu() {
         return nahrdelnik.getDrahokamy().size() == 4;
     }
+    /**
+     * Metoda vracející inventář
+     *
+     */
     public List<Predmet> getInventar() {
         return inventar;
     }
+    /**
+     * Metoda, která je použita při nasazování náhrdelníku.
+     * kontroluje jestli má hrář náhrdelník v inventáři
+     * a pokud ano, nastavuje hodnotu nahrdelnikNasazen na true a vrací string co potvrzuje, že si ho nasadil
+     * pokud ne tak vrací string, který oznamuje že hráč nemá náhrdelník
+     *
+     */
     public String nasazeniNahrdelniku() {
         boolean jeVBatohu = false;
         Predmet nahr = null;
@@ -128,21 +190,34 @@ public class Hra {
             return "Náhrdelník nemáš v batohu.";
         }
     }
+    /**
+     * Metoda vracející true, jestli je hodnota nahrdelnikNasazen true a false jestli je false
+     *
+     */
     public boolean isNahrdelnikNasazen() {
         return nahrdelnikNasazen;
     }
-
+    /**
+     * Metoda nastavující hodnotu nahrdelnikNasazen
+     *
+     */
     public void setNahrdelnikNasazen(boolean nahrdelnikNasazen) {
         this.nahrdelnikNasazen = nahrdelnikNasazen;
     }
-
+    /**
+     * Metoda vracejicí instanci předmětu náhrdelník
+     *
+     */
     public Predmet getNahrdelnik() {
         return nahrdelnik;
     }
-
+    /**
+     * Metoda vracející Strin napovedy
+     *
+     */
     public String napoveda() {
         return """
-                Tvým úkolem je dostat se s hrobky. Abys toto mohl splnit,
+                Tvým úkolem je dostat se z hrobky. Abys toto mohl splnit,
                 tak je potřeba posbírat všechny potřebné drahokamy a nasadit je na náhrdelník.
                 Po příchodu do místnosti východ s nasazeným náhrdelníkem se ti otevře východ a hra skončí.
                 Použitelné příkazy:

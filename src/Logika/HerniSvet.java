@@ -17,6 +17,10 @@ public class HerniSvet
 {
     private Lokace aktualniLokace;
     private List<Predmet> vsechnyPredmety = new ArrayList<>();
+    /**
+     * Konstruktor herního světa, vytváří všechny předměty, lokace, postavy a zadává všechny východy a také stratující lokaci.
+     *
+     */
     public HerniSvet()
     {
         Predmet baterka = new Predmet(false, "baterka", true);
@@ -71,23 +75,29 @@ public class HerniSvet
 
         aktualniLokace = chodba;
     }
-
+    /**
+     * Metoda vracející aktuální lokaci, kde se hráč zrovna nachází
+     *
+     */
     public Lokace getAktualniLokace()
     {
         return aktualniLokace;
     }
-
+    /**
+     * Metoda nastavujéící aktuální lokaci hráče
+     *
+     */
     public void setAktualniLokace(Lokace aktualniLokace)
     {
         this.aktualniLokace = aktualniLokace;
     }
-
+    /**
+     * Metoda vracející všechny předměty na mapě
+     *
+     */
     public List<Predmet> getVsechnyPredmety() {
         return vsechnyPredmety;
     }
 
-    public void setVsechnyPredmety(List<Predmet> vsechnyPredmety) {
-        this.vsechnyPredmety = vsechnyPredmety;
-    }
 }
 

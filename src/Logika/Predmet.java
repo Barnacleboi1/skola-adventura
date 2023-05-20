@@ -57,6 +57,12 @@ public class Predmet {
         this(nazev, bylSebran);
         this.jeDrahokam = jeDrahokam;
     }
+    /**
+     * Metoda která je volána příkazem pouzij. pokud je předmět paterka,
+     * tak ji rozsvítí/zhasne, pokud je předmět drahokam, nasadí ho do náhrdelníku
+     * metoda vrací string dle úspěšnsoti
+     *
+     */
     public String pouzij(Hra aktualniHra) {
         if (jeBaterka) {
             if (!jeRozsvicena) {
@@ -80,43 +86,59 @@ public class Predmet {
         }
         return "Tento předmět se nedá nijak použít.";
     }
+    /**
+     * Metoda vracející list drahokamů v náhrdelníku nebo truhle
+     *
+     */
     public List<Predmet> getDrahokamy() {
         return drahokamy;
     }
+    /**
+     * Metoda vracející název předmětu
+     *
+     */
     public String getNazev() {
         return nazev;
     }
-
-    public void setNazev(String nazev) {
-        this.nazev = nazev;
-    }
-
+    /**
+     * Metoda vracející, jestli byl předmět sebrán
+     *
+     */
     public boolean isBylSebran() {
         return bylSebran;
     }
-
+    /**
+     * Metoda která nastavuje hodnotu bylSebran
+     *
+     */
     public void setBylSebran(boolean bylSebran) {
         this.bylSebran = bylSebran;
     }
-
-    public boolean isJeNahrdelnik() {
-        return jeNahrdelnik;
-    }
-
+    /**
+     * Metoda kotnrolující u předmětu baterky, jestli je rozsvícený (hodnota jeRozsvicena je true)
+     *
+     */
     public boolean isRozsvicena() {
         return jeRozsvicena;
     }
-
+    /**
+     * Metoda, kterou se zrosvicí baterka. nastavuje hodnotu jeRozsvicena
+     *
+     */
     public void setJeRozsvicena(boolean jeRozsvicena) {
         this.jeRozsvicena = jeRozsvicena;
     }
-
-    public Predmet getKlíč() {
-        return klíč;
-    }
+    /**
+     * Metoda pridávající drahokam, ať je to do náhrdelníku nebo do truhly
+     *
+     */
     public void pridejDrahokam(Predmet drahokam) {
         drahokamy.add(drahokam);
     }
+    /**
+     * Metoda equals k porovnání dvou předmětů
+     *
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -126,7 +148,10 @@ public class Predmet {
 
         return Objects.equals(nazev, predmet.nazev);
     }
-
+    /**
+     * vracející kód, který má každý objekt v javě přiřazený. Tuto metodu musíme vždy překrýt při překrývání equals() metody
+     *
+     */
     @Override
     public int hashCode() {
         return nazev != null ? nazev.hashCode() : 0;

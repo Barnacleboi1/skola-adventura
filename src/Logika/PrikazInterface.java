@@ -22,6 +22,10 @@ class PrikazNasad implements PrikazInterface {
         this.aktualniHra = aktualniHra;
     }
 
+    /**
+     * metoda vracející název příkazu.
+     *
+     */
     @Override
     public String getNazev() {
         return "nasad";
@@ -47,7 +51,10 @@ class PrikazNapoveda implements  PrikazInterface {
     public PrikazNapoveda(Hra aktualniHra) {
         this.aktualniHra = aktualniHra;
     }
-
+    /**
+     * metoda vracející název příkazu.
+     *
+     */
     @Override
     public String getNazev() {
         return "napoveda";
@@ -59,7 +66,7 @@ class PrikazNapoveda implements  PrikazInterface {
     }
 }
 /**
- * Třída příkazu, který umožňuje hráči pohyb mezi lokacemi
+ * Třída příkazu, který umožňuje hráči pohyb mezi lokacemi. Po vstupu do lokace se vypíší i informace o lokaci.
  *
  * @author Robert Čuda
  * @Version 17.5.2023
@@ -70,7 +77,10 @@ class PrikazJdi implements  PrikazInterface {
     public PrikazJdi(Hra aktualniHra) {
         this.aktualniHra = aktualniHra;
     }
-
+    /**
+     * metoda vracející název příkazu.
+     *
+     */
     @Override
     public String getNazev() {
         return "jdi";
@@ -149,6 +159,7 @@ class PrikazProhledej implements PrikazInterface {
     }
 }
     */
+
 /**
  * Třída příkazu, kterým hráč může sbírav předměty, které jsou s ním v místnosti
  *
@@ -162,7 +173,10 @@ class PrikazVezmi implements PrikazInterface {
     public PrikazVezmi(Hra aktualniHra) {
         this.aktualniHra = aktualniHra;
     }
-
+    /**
+     * metoda vracející název příkazu.
+     *
+     */
     @Override
     public String getNazev() {
         return "vezmi";
@@ -198,7 +212,10 @@ class PrikazObsahBatohu implements PrikazInterface {
     public PrikazObsahBatohu(Hra aktualniHra) {
         this.aktualniHra = aktualniHra;
     }
-
+    /**
+     * metoda vracející název příkazu.
+     *
+     */
     @Override
     public String getNazev() {
         return "batoh";
@@ -220,6 +237,10 @@ class PrikazPouzij implements PrikazInterface {
     public PrikazPouzij(Hra aktualniHra) {
         this.aktualniHra = aktualniHra;
     }
+    /**
+     * metoda vracející název příkazu.
+     *
+     */
     @Override
     public String getNazev() {
         return "pouzij";
@@ -257,7 +278,10 @@ class PrikazOdemkni implements PrikazInterface {
     public PrikazOdemkni(Hra aktualniHra) {
         this.aktualniHra = aktualniHra;
     }
-
+    /**
+     * metoda vracející název příkazu.
+     *
+     */
     @Override
     public String getNazev() {
         return "odemkni";
@@ -320,7 +344,10 @@ class PrikazMluv implements PrikazInterface {
     public PrikazMluv(Hra aktualniHra) {
         this.aktualniHra = aktualniHra;
     }
-
+    /**
+     * metoda vracející název příkazu.
+     *
+     */
     @Override
     public String getNazev() {
         return "mluv";
@@ -347,6 +374,10 @@ class PrikazMluv implements PrikazInterface {
         return postava.promluva();
     }
 }
+/**
+ * Třída příkazu, kterým hráč zanechává předmět v aktuální lokaci
+ *
+ */
 class PrikazPoloz implements PrikazInterface {
 
     private Hra aktualniHra;
@@ -354,7 +385,10 @@ class PrikazPoloz implements PrikazInterface {
     public PrikazPoloz(Hra aktualniHra) {
         this.aktualniHra = aktualniHra;
     }
-
+    /**
+     * metoda vracející název příkazu.
+     *
+     */
     @Override
     public String getNazev() {
         return "poloz";
@@ -377,6 +411,9 @@ class PrikazPoloz implements PrikazInterface {
         }
         if (predmetKPolozeni == null) {
             return "Takový předmět nemáš v inventáři";
+        }
+        if (predmetKPolozeni.getNazev().equals("batoh")) {
+            return "Batoh nemůžeš položit";
         }
         aktualniHra.odeberPredmet(predmetKPolozeni);
         aktualniHra.getHerniSvet().getAktualniLokace().pridejPredmet(predmetKPolozeni);

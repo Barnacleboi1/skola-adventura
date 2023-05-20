@@ -9,9 +9,9 @@ public class TextoveRozhrani
     private Scanner scanner;
 
     /**
-     * Konstruktor třídy, vytvoří uživatelské rozhraní pro danou hru.
+     * Konstruktor třídy. v něm se vytváří instance třídy hra a také instance objektu Scanner.
      *
-     * @param aktualniHra hra
+     *
      */
     public TextoveRozhrani(Hra aktualniHra)
     {
@@ -20,10 +20,8 @@ public class TextoveRozhrani
     }
 
     /**
-     * Metoda zajišťuje hraní hry. Nejprve vypíše úvodní text. Poté v cyklu
-     * načítá zadané příkazy z konzole, předává je hře ke zpracování a vypisuje
-     * reakce hry. To se neustále opakuje, dokud hra prostřednictvím metody
-     * {@link Hra#isHraSkoncila() isHraSkoncila} neoznámí, že skončila.
+     * Metoda vytváří prostředí, které pomocí instance objektu scanner čte vstupy uživatele
+     * a zpracovává je pomocí metody zpracujPrikaz. Také volá prolog aktuální hry
      */
     public void hraj()
     {
