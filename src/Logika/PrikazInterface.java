@@ -119,15 +119,17 @@ class PrikazJdi implements  PrikazInterface {
                 return aktualniHra.getEpilog();
             }
         }
-        return "Jdeš do " + cilovaLokace.getNazev();
+        return "Jdeš do " + cilovaLokace.getNazev() + "\n"
+                + cilovaLokace.prohledaniMistnosti();
     }
 }
 /**
  * Třída příkazu, kterým hráč prohledává aktuální lokaci, ve které je.
+ * Tento příkaz jsem odebral z poslední verze hry, místo toho se informace o místnosti vypisují při příchodu.
  *
  * @author Robert Čuda
  * @Version 17.5.2023
- */
+ *
 class PrikazProhledej implements PrikazInterface {
     private Hra aktualniHra;
 
@@ -146,6 +148,7 @@ class PrikazProhledej implements PrikazInterface {
         return aktualniLokace.prohledaniMistnosti();
     }
 }
+    */
 /**
  * Třída příkazu, kterým hráč může sbírav předměty, které jsou s ním v místnosti
  *
@@ -342,6 +345,42 @@ class PrikazMluv implements PrikazInterface {
             return "Taková postava v této lokaci není.";
         }
         return postava.promluva();
+    }
+}
+class PrikazPoloz implements PrikazInterface {
+
+    private Hra aktualniHra;
+
+    public PrikazPoloz(Hra aktualniHra) {
+        this.aktualniHra = aktualniHra;
+    }
+
+    @Override
+    public String getNazev() {
+        return "poloz";
+    }
+
+    @Override
+    public String proved(String[] parametry) {
+        if (parametry.length == 0) {
+            return "Musíš říct, co za předmět chceš položit.";
+        }
+        if (parametry.length == 2) {
+            return "Můžeš položit jen jeden předmět najednou.";
+        }
+        String jmenoPredmetu = parametry[0];
+        Predmet predmetKPolozeni = null;
+        for (Predmet predmet : aktualniHra.getInventar()) {
+            if (predmet.getNazev().equals(jmenoPredmetu)) {
+                predmetKPolozeni = predmet;
+            }
+        }
+        if (predmetKPolozeni == null) {
+            return "Takový předmět nemáš v inventáři";
+        }
+        aktualniHra.odeberPredmet(predmetKPolozeni);
+        aktualniHra.getHerniSvet().getAktualniLokace().pridejPredmet(predmetKPolozeni);
+        return "Položil si " + predmetKPolozeni.getNazev() + " v lokaci: " + aktualniHra.getHerniSvet().getAktualniLokace().getNazev();
     }
 }
 

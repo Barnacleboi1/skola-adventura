@@ -29,12 +29,13 @@ public class Hra {
         prikazy.add(new PrikazNasad(this));
         prikazy.add(new PrikazNapoveda(this));
         prikazy.add(new PrikazJdi(this));
-        prikazy.add(new PrikazProhledej(this));
+        // prikazy.add(new PrikazProhledej(this));
         prikazy.add(new PrikazVezmi(this));
         prikazy.add(new PrikazObsahBatohu(this));
         prikazy.add(new PrikazPouzij(this));
         prikazy.add(new PrikazOdemkni(this));
         prikazy.add(new PrikazMluv(this));
+        prikazy.add(new PrikazPoloz(this));
     }
     public String zpracujPrikaz(String vstupUzivatele) {
         String[] array = vstupUzivatele.split(" ");
@@ -95,7 +96,8 @@ public class Hra {
         this.hraSkoncila = hraSkoncila;
     }
     public String getProlog() {
-        return "Probouzíš se v chodbě staré egyptské hrobky. Všude kolem je tma.";
+        return "Probouzíš se v chodbě staré egyptské hrobky. Všude kolem je tma." + "\n"
+                + herniSvet.getAktualniLokace().prohledaniMistnosti();
     }
 
     public String getEpilog() {
@@ -147,11 +149,11 @@ public class Hra {
                 nasad
                 napoveda
                 jdi
-                prohledej
                 vezmi
                 batoh
                 pouzij
                 odemkni
-                mluv""";
+                mluv
+                poloz""";
     }
 }

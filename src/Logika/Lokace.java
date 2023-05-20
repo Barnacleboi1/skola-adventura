@@ -39,6 +39,9 @@ public class Lokace {
     public void odeberpredmet(Predmet predmet) {
         predmetyVLokaci.remove(predmet);
     }
+    public void pridejPredmet(Predmet predmet) {
+        predmetyVLokaci.add(predmet);
+    }
     public Lokace getVychod(String nazevLokace) {
         for (Lokace lokace : vychody) {
             if (lokace.getNazev().equals(nazevLokace)) {
