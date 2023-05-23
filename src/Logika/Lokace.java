@@ -130,7 +130,7 @@ public class Lokace {
      *
      */
     public String prohledaniMistnosti() {
-        return  "Po prohledání místnosti si zjistil:\n" +
+        return  "Po prohledání místnosti jsi zjistil:\n" +
                 "\n" +
                 "Jsi v místnosti: " + this.getNazev() +
                 "\nV místnosti jsou předměty: " + stringPredmetuVLokaci() +
