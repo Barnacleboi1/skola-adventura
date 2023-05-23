@@ -37,7 +37,8 @@ public class HerniSvet
 
         Predmet zlataTruhla = new Predmet("zlata_truhla", false, klic, safír, ametyst);
 
-        Postava anubis = new Postava("Anubis", "zdravím"
+        Postava anubis = new Postava("Anubis"
+                , "zdravím"
                 , "vypadáš ztraceně"
                 , "aby se ti otevřel východ, musíš mít nasazený náhrdelník se čtyřmi drahokamy");
 
