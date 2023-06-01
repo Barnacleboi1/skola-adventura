@@ -1,5 +1,6 @@
 package Logika;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,50 +19,50 @@ import java.util.Objects;
 public class Predmet {
     private String nazev;
     private boolean bylSebran;
-    private boolean jeNahrdelnik;
     private boolean jeRozsvicena;
     private boolean jeBaterka;
     private boolean jeDrahokam;
+    private boolean nelzeSebrat;
     private List<Predmet> drahokamy;
-    private Predmet klíč;
+
 
     //kontsruktor normálních předmětů
 
-    public Predmet(String nazev, boolean bylSebran) {
+    public Predmet(String nazev) {
         this.nazev = nazev;
-        this.bylSebran = bylSebran;
+        if (nazev == "nahrdelnik"){
+            this.drahokamy = new ArrayList<>();
+        }
     }
 
-    //konstruktor náhrdelníku
-    public Predmet(String nazev, boolean bylSebran, boolean jeNahrdelnik) {
-        this(nazev, bylSebran);
-        this.jeNahrdelnik = jeNahrdelnik;
-        this.drahokamy = new ArrayList<>();
-    }
-
-    //kontruktor baterky
-    public Predmet(boolean bylSebran, String nazev, boolean jeBaterka) {
-        this(nazev, bylSebran);
-        this.jeBaterka = jeBaterka;
-        this.jeRozsvicena = false;
-    }
     //konstruktor truhly
-    public Predmet(String nazev, boolean bylSebran, Predmet klíč, Predmet... drahokamy) {
-        this(nazev, bylSebran);
+    public Predmet(String nazev, Predmet... drahokamy) {
+        this(nazev);
         this.drahokamy = new ArrayList<>(Arrays.asList(drahokamy));
-        this.klíč = klíč;
+
     }
 
-    //kontruktor drahokamů
-    public Predmet(boolean jeDrahokam, boolean bylSebran, String nazev) {
-        this(nazev, bylSebran);
+
+
+    public void setJeBaterka(boolean jeBaterka) {
+        this.jeBaterka = jeBaterka;
+    }
+
+    public void setJeDrahokam(boolean jeDrahokam) {
         this.jeDrahokam = jeDrahokam;
     }
+
+    public void setNelzeSebrat(boolean nelzeSebrat) {
+        this.nelzeSebrat = nelzeSebrat;
+    }
+
     /**
      * Metoda která je volána příkazem pouzij. pokud je předmět paterka,
      * tak ji rozsvítí/zhasne, pokud je předmět drahokam, nasadí ho do náhrdelníku
      * metoda vrací string dle úspěšnsoti
      *
+     *@param instance aktualni hry
+     *@return String dle úspěšnosti
      */
     public String pouzij(Hra aktualniHra) {
         if (jeBaterka) {
@@ -86,58 +87,67 @@ public class Predmet {
         }
         return "Tento předmět se nedá nijak použít.";
     }
+
+    /**
+     * Metoda vracející boolean jestli jde předmět sebrat nebo ne
+     * @return true jestli jde, false jestli ne
+     */
+    public boolean isNelzeSebrat() {
+        return nelzeSebrat;
+    }
+
     /**
      * Metoda vracející list drahokamů v náhrdelníku nebo truhle
      *
+     *@return list drahokamů
      */
     public List<Predmet> getDrahokamy() {
         return drahokamy;
     }
+
     /**
      * Metoda vracející název předmětu
      *
+     *@return nazev předmětu
      */
     public String getNazev() {
         return nazev;
     }
-    /**
-     * Metoda vracející, jestli byl předmět sebrán
-     *
-     */
-    public boolean isBylSebran() {
-        return bylSebran;
-    }
-    /**
-     * Metoda která nastavuje hodnotu bylSebran
-     *
-     */
-    public void setBylSebran(boolean bylSebran) {
-        this.bylSebran = bylSebran;
-    }
+
+
+
     /**
      * Metoda kotnrolující u předmětu baterky, jestli je rozsvícený (hodnota jeRozsvicena je true)
      *
+     *@return boolean jestli je baterka rozsvícena
      */
     public boolean isRozsvicena() {
         return jeRozsvicena;
     }
+
     /**
      * Metoda, kterou se zrosvicí baterka. nastavuje hodnotu jeRozsvicena
      *
+     *@param jestli je baterka rozsvícena
      */
     public void setJeRozsvicena(boolean jeRozsvicena) {
         this.jeRozsvicena = jeRozsvicena;
     }
+
     /**
      * Metoda pridávající drahokam, ať je to do náhrdelníku nebo do truhly
      *
+     *@param predmět drahokamu, co cheme přidat
      */
     public void pridejDrahokam(Predmet drahokam) {
         drahokamy.add(drahokam);
     }
+
     /**
      * Metoda equals k porovnání dvou předmětů
      *
+     *@param objektu, se kterým porovnáváme
+     *@return boolean jestli se predmety rovnaji
      */
     @Override
     public boolean equals(Object o) {
@@ -148,9 +158,11 @@ public class Predmet {
 
         return Objects.equals(nazev, predmet.nazev);
     }
+
     /**
      * vracející kód, který má každý objekt v javě přiřazený. Tuto metodu musíme vždy překrýt při překrývání equals() metody
      *
+     *@return kód
      */
     @Override
     public int hashCode() {

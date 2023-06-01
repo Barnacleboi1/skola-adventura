@@ -12,7 +12,6 @@ import java.util.List;
  * @Version 17.5.2023
  */
 
-
 public class HerniSvet
 {
     private Lokace aktualniLokace;
@@ -23,30 +22,41 @@ public class HerniSvet
      */
     public HerniSvet()
     {
-        Predmet baterka = new Predmet(false, "baterka", true);
+        Predmet baterka = new Predmet("baterka");
+        baterka.setJeBaterka(true);
+        baterka.setJeRozsvicena(false);
 
-        Predmet batoh = new Predmet("batoh", false);
-        Predmet klic = new Predmet("klic", false);
+        Predmet batoh = new Predmet("batoh");
+        Predmet klic = new Predmet("klic");
 
-        Predmet nahrdelnik = new Predmet("nahrdelnik", false, false);
 
-        Predmet rubín = new Predmet(true, false, "rubin");
-        Predmet smaragd = new Predmet(true, false, "smaragd");
-        Predmet safír = new Predmet(true, false, "safir");
-        Predmet ametyst = new Predmet(true, false, "ametyst");
+        Predmet nahrdelnik = new Predmet("nahrdelnik");
+ 
 
-        Predmet zlataTruhla = new Predmet("zlata_truhla", false, klic, safír, ametyst);
+        Predmet rakev = new Predmet("rakev");
+        rakev.setNelzeSebrat(true);
+
+        Predmet rubín = new Predmet("rubin");
+        Predmet smaragd = new Predmet("smaragd");
+        Predmet safír = new Predmet("safir");
+        Predmet ametyst = new Predmet("ametyst");
+        rubín.setJeDrahokam(true);
+        smaragd.setJeDrahokam(true);
+        safír.setJeDrahokam(true);
+        ametyst.setJeDrahokam(true);
+
+        Predmet zlataTruhla = new Predmet("zlata_truhla", safír, ametyst);
 
         Postava anubis = new Postava("Anubis"
-                , "zdravím"
-                , "vypadáš ztraceně"
-                , "aby se ti otevřel východ, musíš mít nasazený náhrdelník se čtyřmi drahokamy");
+            , "zdravím"
+            , "vypadáš ztraceně"
+            , "aby se ti otevřel východ, musíš mít nasazený náhrdelník se čtyřmi drahokamy");
 
         Lokace chodba = new Lokace("chodba", baterka, batoh);
         Lokace vychod = new Lokace("vychod");
         Lokace velkaHala = new Lokace("velka_hala", nahrdelnik);
         Lokace obetniMistnost = new Lokace("obetni_mistnost", zlataTruhla);
-        Lokace faraonovaHrobka = new Lokace("faraonova_hrobka", rubín, smaragd);
+        Lokace faraonovaHrobka = new Lokace("faraonova_hrobka", rubín, smaragd, rakev);
         Lokace sluzebnickaHrobka = new Lokace("sluzebnicka_hrobka", klic);
 
         velkaHala.pridejPostavu(anubis);
@@ -73,28 +83,33 @@ public class HerniSvet
 
         obetniMistnost.pridejVychod(velkaHala);
 
-
         aktualniLokace = chodba;
     }
+
     /**
      * Metoda vracející aktuální lokaci, kde se hráč zrovna nachází
      *
+     * @return aktualni lokace
      */
     public Lokace getAktualniLokace()
     {
         return aktualniLokace;
     }
+
     /**
      * Metoda nastavujéící aktuální lokaci hráče
      *
+     * @param instance aktualni lokace
      */
     public void setAktualniLokace(Lokace aktualniLokace)
     {
         this.aktualniLokace = aktualniLokace;
     }
+
     /**
      * Metoda vracející všechny předměty na mapě
      *
+     * @return všechny předměty
      */
     public List<Predmet> getVsechnyPredmety() {
         return vsechnyPredmety;

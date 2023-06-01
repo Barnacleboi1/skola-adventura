@@ -1,6 +1,5 @@
 package Logika;
 
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,10 +24,12 @@ public class Postava {
         this.dialog = Arrays.asList(dialog);
         this.veta = 0;
     }
+
     /**
      * Metoda vracející String dialogu, který má zrovna postava říkat. metoda používá
      * int veta aby určila pořadí věty kterou má říkat
      *
+     *@return aktualni string dialogu
      */
     public String promluva() {
         String promluva = dialog.get(veta);
@@ -38,9 +39,11 @@ public class Postava {
         }
         return promluva;
     }
+
     /**
      * Metoda vracející jméno postavy.
      *
+     *@return jmeno postavy
      */
     public String getJmeno() {
         return jmeno;
